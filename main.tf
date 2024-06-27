@@ -166,11 +166,11 @@ output "cloudfront_domain_name" {
 
 # Upload a local folder and its contents to the S3 bucket
 resource "aws_s3_object" "folder_upload" {
-  for_each = fileset("./cloud-resume/website", "**/*")
+  for_each = fileset("cloud-resume/website", "**/*")
 
   bucket = aws_s3_bucket.my_bucket.bucket
   key    = each.value
   source = "/cloud-resume/website/${each.value}"
   # etag makes the file update when it changes;
-  etag = filemd5("./cloud-resume/website/${each.value}")
+  etag = filemd5("cloud-resume/website/${each.value}")
 }
