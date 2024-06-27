@@ -170,7 +170,7 @@ resource "aws_s3_object" "folder_upload" {
 
   bucket = aws_s3_bucket.my_bucket.bucket
   key    = each.value
-  source = "/cloud-resume/website/${each.value}"
+  source = "cloud-resume/website/${each.value}"
   # etag makes the file update when it changes;
   etag = filemd5("cloud-resume/website/${each.value}")
 }
