@@ -100,7 +100,7 @@ resource "aws_cloudfront_distribution" "my_distribution" {
     }
   }
 
-  aliases = ["test.emersonrosa.com"]
+  aliases = ["resume.emersonrosa.com"]
 
   viewer_certificate {
     acm_certificate_arn            = "arn:aws:acm:us-east-1:909704688421:certificate/054d4ada-7fd0-475f-8fa6-c9de8fc0a739"
@@ -149,7 +149,7 @@ data "aws_caller_identity" "current" {}
 # Create Route53 record
 resource "aws_route53_record" "my_record" {
   zone_id = "Z08885102U9M21ZMYE1PS" # Replace with your Route53 hosted zone ID
-  name    = "test.emersonrosa.com"  # Replace with your desired subdomain
+  name    = "resume.emersonrosa.com"  # Replace with your desired subdomain
   type    = "A"
 
   alias {
