@@ -1,0 +1,63 @@
+# modules/s3_bucket/main.tf
+resource "random_integer" "random_bucket_number" {
+  min = 100
+  max = 999
+}
+
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "emerson-${random_integer.random_bucket_number.result}-cloud-resume-2024"
+
+  tags = {
+    Name        = "Cloud-Resume"
+    Environment = "Prod"
+  }
+}
+
+resource "aws_s3_bucket_ownership_controls" "my_bucket_ownership" {
+  bucket = aws_s3_bucket.my_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "my_bucket_acl" {
+  depends_on = [aws_s3_bucket_ownership_controls.my_bucket_ownership]
+  bucket     = aws_s3_bucket.my_bucket.id
+  acl        = "private"
+}
+
+resource "aws_s3_bucket_public_access_block" "my_bucket_block" {
+  bucket = aws_s3_bucket.my_bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# Update S3 bucket policy to allow access from CloudFront
+resource "aws_s3_bucket_policy" "my_bucket_policy" {
+  bucket = aws_s3_bucket.my_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "AllowCloudFrontAccess",
+        Effect = "Allow",
+        Principal : {
+          Service : "cloudfront.amazonaws.com"
+        },
+        Action   = "s3:GetObject",
+        Resource = "${aws_s3_bucket.my_bucket.arn}/*",
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = "${var.cloudfront_arn}"
+          }
+        }
+      }
+    ]
+  })
+
+  depends_on = [var.cloudfront_distribution_resource]
+}
