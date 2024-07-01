@@ -12,7 +12,6 @@ variable "bucket_domain_name" {
 variable "aliases" {
   description = "Aliases for the CloudFront distribution"
   type        = list(string)
-  default     = ["resume.emersonrosa.com"]
 }
 
 variable "acm_certificate_arn" {
@@ -23,5 +22,4 @@ variable "acm_certificate_arn" {
 variable "price_class" {
   description = "Price class for the CloudFront distribution"
   type        = string
-  default     = "PriceClass_100"
 }

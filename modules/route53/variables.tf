@@ -12,11 +12,9 @@ variable "cloudfront_hosted_zone_id" {
 variable "zone_id" {
   description = "Route53 hosted zone ID"
   type        = string
-  default     = "Z08885102U9M21ZMYE1PS"  # Replace with your actual hosted zone ID
 }
 
 variable "record_name" {
   description = "Name of the Route53 record"
   type        = string
-  default     = "resume.emersonrosa.com"
 }
