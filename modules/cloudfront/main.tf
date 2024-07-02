@@ -19,7 +19,7 @@ resource "aws_cloudfront_distribution" "my_distribution" {
   default_root_object = "index.html"
 
   default_cache_behavior {
-    cache_policy_id  = "527d7b1a-4b9b-44f7-964a-0a58fb3082ec"
+    cache_policy_id  = var.cache_policy_id
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = var.bucket_id
@@ -37,16 +37,16 @@ resource "aws_cloudfront_distribution" "my_distribution" {
     }
   }
 
-  aliases = ["resume.emersonrosa.com"]
+  aliases = var.aliases
 
   viewer_certificate {
-    acm_certificate_arn            = "arn:aws:acm:us-east-1:909704688421:certificate/054d4ada-7fd0-475f-8fa6-c9de8fc0a739"
+    acm_certificate_arn            = var.acm_certificate_arn
     ssl_support_method             = "sni-only"
     minimum_protocol_version       = "TLSv1.2_2021"
     cloudfront_default_certificate = false
   }
 
-  price_class = "PriceClass_100"
+  price_class = var.price_class
 
   tags = {
     Name = "Cloud Resume Distribution"

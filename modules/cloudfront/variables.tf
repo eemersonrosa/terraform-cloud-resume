@@ -23,3 +23,8 @@ variable "price_class" {
   description = "Price class for the CloudFront distribution"
   type        = string
 }
+
+variable "cache_policy_id" {
+  description = "Cache Policy ID previously created"
+  type = string
+}

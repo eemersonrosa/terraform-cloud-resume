@@ -38,3 +38,7 @@ variable "record_name" {
   description = "Name of the Route53 record"
   type        = string
 }
+
+variable "cache_policy_id" {
+  type = string
+}

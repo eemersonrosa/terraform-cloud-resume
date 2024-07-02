@@ -17,12 +17,27 @@ jobs:
       TF_VAR_zone_id: ${{ secrets.ZONE_ID }}
       TF_VAR_record_name: ${{ secrets.RECORD_NAME }}
       TF_VAR_aws_region: ${{ secrets.AWS_REGION}}
+      TF_VAR_cache_policy_id: ${{ secrets.CACHE_POLICY_ID}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Add mask for sensitive variables
+        run: |
+          echo "::add-mask::${{ secrets.AWS_ACCESS_KEY_ID }}"
+          echo "::add-mask::${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          echo "::add-mask::${{ secrets.BUCKET_PREFIX }}"
+          echo "::add-mask::${{ secrets.ENVIRONMENT }}"
+          echo "::add-mask::${{ secrets.ALIASES }}"
+          echo "::add-mask::${{ secrets.ACM_CERTIFICATE_ARN }}"
+          echo "::add-mask::${{ secrets.PRICE_CLASS }}"
+          echo "::add-mask::${{ secrets.ZONE_ID }}"
+          echo "::add-mask::${{ secrets.RECORD_NAME }}"
+          echo "::add-mask::${{ secrets.AWS_REGION }}"
+          echo "::add-mask::${{ secrets.CACHE_POLICY_ID }}"
 
       - name: Terraform Init
         run: terraform init

@@ -1,11 +1,16 @@
 # modules/s3_bucket/main.tf
-resource "random_integer" "random_bucket_number" {
-  min = 100
-  max = 999
+resource "random_integer" "random_number" {
+  min = 1
+  max = 1000
+}
+
+resource "random_string" "random_string" {
+  length  = 8
+  special = false
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "emerson-${random_integer.random_bucket_number.result}-cloud-resume-2024"
+  bucket = "emerson-${random_integer.random_number.result}-resume-${random_string.random_string.result}"
 
   tags = {
     Name        = "Cloud-Resume"

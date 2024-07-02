@@ -36,6 +36,7 @@ module "cloudfront" {
   aliases             = var.aliases
   acm_certificate_arn = var.acm_certificate_arn
   price_class         = var.price_class
+  cache_policy_id = var.cache_policy_id
 }
 
 module "route53" {
