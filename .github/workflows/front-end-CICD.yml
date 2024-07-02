@@ -2,10 +2,7 @@ name: Terraform Cloud Resume
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-
+    
 jobs:
   deploy:
     runs-on: ubuntu-latest
