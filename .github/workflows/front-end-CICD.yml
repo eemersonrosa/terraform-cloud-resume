@@ -2,14 +2,21 @@ name: Terraform Cloud Resume
 
 on:
   workflow_dispatch:
-    
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'us-east-1'
+      TF_VAR_bucket_prefix: ${{ secrets.BUCKET_PREFIX }}
+      TF_VAR_environment: ${{ secrets.ENVIRONMENT }}
+      TF_VAR_aliases: ${{ secrets.ALIASES }}
+      TF_VAR_acm_certificate_arn: ${{ secrets.ACM_CERTIFICATE_ARN }}
+      TF_VAR_price_class: ${{ secrets.PRICE_CLASS }}
+      TF_VAR_zone_id: ${{ secrets.ZONE_ID }}
+      TF_VAR_record_name: ${{ secrets.RECORD_NAME }}
+      TF_VAR_aws_region: ${{ secrets.AWS_REGION}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
