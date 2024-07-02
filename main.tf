@@ -22,10 +22,10 @@ terraform {
 }
 
 module "s3_bucket" {
-  source         = "./modules/s3_bucket"
-  bucket_prefix  = var.bucket_prefix
-  environment    = var.environment
-  cloudfront_arn = module.cloudfront.cloudfront_arn
+  source                           = "./modules/s3_bucket"
+  bucket_prefix                    = var.bucket_prefix
+  environment                      = var.environment
+  cloudfront_arn                   = module.cloudfront.cloudfront_arn
   cloudfront_distribution_resource = module.cloudfront.cloudfront_distribution_id
 }
 
@@ -36,7 +36,7 @@ module "cloudfront" {
   aliases             = var.aliases
   acm_certificate_arn = var.acm_certificate_arn
   price_class         = var.price_class
-  cache_policy_id = var.cache_policy_id
+  cache_policy_id     = var.cache_policy_id
 }
 
 module "route53" {

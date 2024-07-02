@@ -20,7 +20,7 @@ resource "random_string" "random_string2" {
 
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "emerson-${random_integer.random_number.result}-resume-${random_string.random_string.result}-${random_string.random_string2.result}"
+  bucket = "${var.bucket_prefix}-${random_integer.random_number.result}-resume-${random_string.random_string.result}-${random_string.random_string2.result}"
 
   tags = {
     Name        = "Cloud-Resume"

@@ -40,5 +40,6 @@ variable "record_name" {
 }
 
 variable "cache_policy_id" {
-  type = string
+  description = "Cache Policy ID previously created"
+  type        = string
 }

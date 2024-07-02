@@ -24,10 +24,10 @@ resource "aws_cloudfront_distribution" "my_distribution" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = var.bucket_id
 
-    viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    default_ttl            = 86400
+    max_ttl                = 31536000
     compress               = true
   }
 
