@@ -71,3 +71,6 @@ bin/
 
 # Ignore YAML files for local setup
 *.yaml
+
+# Ignore package-lock.json
+package-lock.json
