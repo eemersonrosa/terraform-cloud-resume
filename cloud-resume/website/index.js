@@ -1,24 +1,26 @@
 $(document).ready(function () {
-    // Cache selectors
+    // Cache selectors for window, navbar, and toggle button
     var $win = $(window);
     var $navbar = $('#header');
     var $toggle = $('.toggle-button');
 
-    // Initial setup
+    // Get the initial width of the navbar
     var width = $navbar.width();
+
+    // Initial setup: adjust navbar position based on window width
     toggleOnClick($win, $navbar, width);
 
-    // Resize event handler
+    // Handle window resize event to adjust navbar position
     $win.resize(function () {
         toggleOnClick($win, $navbar, width);
     });
 
-    // Toggle button click event
+    // Handle toggle button click event to show/hide navbar
     $toggle.click(function () {
         $navbar.toggleClass("toggle-left");
     });
 
-    // Typed.js initialization
+    // Initialize Typed.js for text animation
     var typed = new Typed('#typed', {
         strings: ['Cloud DevOps Engineer'],
         typeSpeed: 55,
@@ -42,7 +44,7 @@ $(document).ready(function () {
         });
     });
 
-    // Uncomment to enable counter update
+    // Uncomment the following code to enable counter update
     // const counter = document.querySelector(".counter-number");
     // async function updateCounter() {
     //     try {
@@ -56,10 +58,13 @@ $(document).ready(function () {
     // updateCounter();
 });
 
+// Function to adjust navbar position based on window width
 function toggleOnClick($win, $navbar, width) {
     if ($win.width() <= 768) {
+        // Hide navbar if window width is less than or equal to 768px
         $navbar.css({ left: `-${width}px` });
     } else {
+        // Show navbar if window width is greater than 768px
         $navbar.css({ left: '0px' });
     }
 }
