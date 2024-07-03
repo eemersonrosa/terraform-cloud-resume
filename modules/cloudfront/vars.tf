@@ -28,3 +28,8 @@ variable "cache_policy_id" {
   description = "Cache Policy ID previously created"
   type = string
 }
+
+variable "common_tags" {
+  type        = map(any)
+  description = "Map of common tags."
+}

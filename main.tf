@@ -27,6 +27,7 @@ module "s3_bucket" {
   environment                      = var.environment
   cloudfront_arn                   = module.cloudfront.cloudfront_arn
   cloudfront_distribution_resource = module.cloudfront.cloudfront_distribution_id
+  common_tags                      = var.common_tags
 }
 
 module "cloudfront" {
@@ -37,6 +38,7 @@ module "cloudfront" {
   acm_certificate_arn = var.acm_certificate_arn
   price_class         = var.price_class
   cache_policy_id     = var.cache_policy_id
+  common_tags         = var.common_tags
 }
 
 module "route53" {

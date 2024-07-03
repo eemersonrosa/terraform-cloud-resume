@@ -48,7 +48,6 @@ resource "aws_cloudfront_distribution" "my_distribution" {
 
   price_class = var.price_class
 
-  tags = {
-    Name = "Cloud Resume Distribution"
-  }
+  tags = merge(var.common_tags, {
+  })
 }

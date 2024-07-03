@@ -1,18 +1,13 @@
 # modules/s3_bucket/main.tf
-resource "random_integer" "random_number" {
-  min = 1
-  max = 1000
-}
-
-resource "random_string" "random_string" {
-  length  = 8
+resource "random_string" "random_string_1" {
+  length  = 4
   special = false
   lower   = true
   upper = false
 }
 
-resource "random_string" "random_string2" {
-  length  = 8
+resource "random_string" "random_string_2" {
+  length  = 4
   special = false
   lower   = true
   upper = false
@@ -20,12 +15,10 @@ resource "random_string" "random_string2" {
 
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "${var.bucket_prefix}-${random_integer.random_number.result}-resume-${random_string.random_string.result}-${random_string.random_string2.result}"
+  bucket = "${var.bucket_prefix}-resume-${random_string.random_string_1.result}-${random_string.random_string_2.result}"
 
-  tags = {
-    Name        = "Cloud-Resume"
-    Environment = "Prod"
-  }
+  tags = merge(var.common_tags, {
+  })
 }
 
 resource "aws_s3_bucket_ownership_controls" "my_bucket_ownership" {
