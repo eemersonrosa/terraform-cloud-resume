@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.0"
+    }
   }
 }
 
@@ -11,42 +15,42 @@ provider "aws" {
   region = "us-east-1"
 }
 
+provider "cloudflare" {
+  api_token = var.CLOUDFLARE_API_TOKEN
+}
+
 # Configure backend
 terraform {
   backend "s3" {
-    bucket  = "emerson-terraform-bucket-2024-11-rosa"
-    key     = "terraform.tfstate"
+    bucket  = "emerson-terraform-f3r2dfj"
+    key     = "emerson-resume-tf.tfstate"
     region  = "us-east-1"
     encrypt = true
   }
 }
 
-module "s3_bucket" {
-  source                           = "./modules/s3_bucket"
-  bucket_prefix                    = var.bucket_prefix
-  environment                      = var.environment
-  cloudfront_arn                   = module.cloudfront.cloudfront_arn
-  cloudfront_distribution_resource = module.cloudfront.cloudfront_distribution_id
-  common_tags                      = var.common_tags
+module "s3_bucket_sub" {
+  source        = "./modules/s3_bucket_sub"
+  bucket_prefix = var.bucket_prefix
+  environment   = var.environment
+  common_tags   = var.common_tags
+  site_domain   = var.site_domain
 }
 
-module "cloudfront" {
-  source              = "./modules/cloudfront"
-  bucket_id           = module.s3_bucket.bucket_id
-  bucket_domain_name  = module.s3_bucket.bucket_domain_name
-  aliases             = var.aliases
-  acm_certificate_arn = var.acm_certificate_arn
-  price_class         = var.price_class
-  cache_policy_id     = var.cache_policy_id
-  common_tags         = var.common_tags
+module "s3_bucket_apex" {
+  source               = "./modules/s3_bucket_apex"
+  bucket_prefix        = var.bucket_prefix
+  environment          = var.environment
+  common_tags          = var.common_tags
+  site_domain          = var.site_domain
+  target_s3_bucket_sub = module.s3_bucket_sub.target_s3_bucket_sub
 }
 
-module "route53" {
-  source                    = "./modules/route53"
-  cloudfront_domain_name    = module.cloudfront.cloudfront_domain_name
-  cloudfront_hosted_zone_id = module.cloudfront.cloudfront_distribution_id
-  zone_id                   = var.zone_id
-  record_name               = var.record_name
+module "cloudflare" {
+  source               = "./modules/cloudflare"
+  site_domain          = var.site_domain
+  s3_web_endpoint_apex = module.s3_bucket_apex.s3_web_endpoint_apex
+  s3_web_endpoint_sub  = module.s3_bucket_sub.s3_web_endpoint_sub
 }
 
 # Data source to get the current AWS account ID
@@ -56,7 +60,7 @@ data "aws_caller_identity" "current" {}
 resource "aws_s3_object" "folder_upload" {
   for_each = fileset("cloud-resume/website", "**/*")
 
-  bucket = module.s3_bucket.bucket_id
+  bucket = module.s3_bucket_sub.bucket_id
   key    = each.value
   source = "cloud-resume/website/${each.value}"
   etag   = filemd5("cloud-resume/website/${each.value}")

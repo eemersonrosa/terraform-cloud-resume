@@ -14,36 +14,13 @@ variable "environment" {
   type        = string
 }
 
-variable "aliases" {
-  description = "Aliases for the CloudFront distribution"
-  type        = list(string)
+variable "site_domain" {
+  type = string
 }
 
-variable "acm_certificate_arn" {
-  description = "ARN of the ACM certificate"
-  type        = string
+variable "CLOUDFLARE_API_TOKEN" {
+  type = string
 }
-
-variable "price_class" {
-  description = "Price class for the CloudFront distribution"
-  type        = string
-}
-
-variable "zone_id" {
-  description = "Route53 hosted zone ID"
-  type        = string
-}
-
-variable "record_name" {
-  description = "Name of the Route53 record"
-  type        = string
-}
-
-variable "cache_policy_id" {
-  description = "Cache Policy ID previously created"
-  type        = string
-}
-
 
 variable "common_tags" {
   type        = map(any)

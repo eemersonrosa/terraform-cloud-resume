@@ -9,17 +9,11 @@ variable "environment" {
   type        = string
 }
 
-variable "cloudfront_arn" {
-  description = "cloudfront ARN"
-  type        = string
-}
-
-variable "cloudfront_distribution_resource" {
-  description = "cloudfront resource"
-  type        = string
-}
-
 variable "common_tags" {
   type        = map(any)
   description = "Map of common tags."
+}
+
+variable "site_domain" {
+  type = string
 }
