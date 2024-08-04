@@ -29,6 +29,11 @@ terraform {
   }
 }
 
+module "resource_group" {
+  source      = "./modules/resource_group"
+  common_tags = var.common_tags
+}
+
 module "s3_bucket_sub" {
   source        = "./modules/s3_bucket_sub"
   bucket_prefix = var.bucket_prefix
