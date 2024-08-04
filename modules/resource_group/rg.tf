@@ -7,7 +7,7 @@ locals {
   ]
 }
 
-resource "aws_resourcegroups_group" "example" {
+resource "aws_resourcegroups_group" "cloud_resume_rg" {
   name = "cloud-resume-rg"
 
   resource_query {
