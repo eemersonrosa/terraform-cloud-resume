@@ -237,3 +237,17 @@ body {
   font-size: 3rem;
   color: var(--color-white);
 }
+
+/* Flicker Animation */
+@keyframes flickerAnimation {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0;
+  }
+}
+
+.flicker {
+  animation: flickerAnimation 2s infinite;
+}

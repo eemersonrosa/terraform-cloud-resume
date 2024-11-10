@@ -22,19 +22,25 @@ $(document).ready(function () {
 
   // Initialize Typed.js for text animation
   var typed = new Typed("#typed", {
-    strings: ["DevOps Engineer"],
+    strings: ["Hello There, what are you doing here?"],
     typeSpeed: 55,
     backSpeed: 55,
     loop: true,
   });
 
   var typed_2 = new Typed("#typed_2", {
-    strings: ["DevOps Engineer"],
+    strings: ["& I may or may not be Lost"],
     typeSpeed: 55,
     backSpeed: 55,
     loop: true,
+    preStringTyped: function () {
+      // Randomize type speed to create a broken look
+      typed_2.typeSpeed = Math.floor(Math.random() * (70 - 40 + 1)) + 40;
+      typed_2.backSpeed = Math.floor(Math.random() * (70 - 40 + 1)) + 40;
+    }
   });
-
+  
+  
   // Smooth scroll to anchor links
   $('a[href^="#"]').on("click", function (e) {
     e.preventDefault();
@@ -56,6 +62,7 @@ $(document).ready(function () {
   //     }
   // }
   // updateCounter();
+  
 });
 
 // Function to adjust navbar position based on window width
