@@ -2,9 +2,20 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto|Rambla|Staatliches&display=swap");
 
 /* Global Reset */
-body {
+
+/* General reset and base styles */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  line-height: 1.6;
+  color: #333;
+  background: #f9f9f9;
+  font-size: 16px;
 }
 
 :root {
