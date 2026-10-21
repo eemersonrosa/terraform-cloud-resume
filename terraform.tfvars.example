@@ -1,0 +1,10 @@
+# Copy to terraform.tfvars (git-ignored) and fill in.
+# CLOUDFLARE_API_TOKEN is better passed as TF_VAR_CLOUDFLARE_API_TOKEN.
+site_domain = "example.com"
+
+common_tags = {
+  owner      = "Firstname Lastname"
+  created-by = "you@example.com"
+  env        = "dmo"
+  region     = "us-east-1"
+}

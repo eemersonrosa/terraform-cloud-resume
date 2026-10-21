@@ -39,8 +39,7 @@ $(document).ready(function () {
       typed_2.backSpeed = Math.floor(Math.random() * (70 - 40 + 1)) + 40;
     }
   });
-  
-  
+
   // Smooth scroll to anchor links
   $('a[href^="#"]').on("click", function (e) {
     e.preventDefault();
@@ -50,19 +49,6 @@ $(document).ready(function () {
     });
   });
 
-  // Uncomment the following code to enable counter update
-  // const counter = document.querySelector(".counter-number");
-  // async function updateCounter() {
-  //     try {
-  //         let response = await fetch("lambda-url.us-east-1.on.aws/");
-  //         let data = await response.json();
-  //         counter.innerHTML = `Views: ${data}`;
-  //     } catch (error) {
-  //         console.error('Failed to fetch counter data:', error);
-  //     }
-  // }
-  // updateCounter();
-  
 });
 
 // Function to adjust navbar position based on window width
