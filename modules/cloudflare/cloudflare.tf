@@ -35,7 +35,8 @@ resource "cloudflare_record" "www" {
 
 resource "cloudflare_page_rule" "https" {
   zone_id = data.cloudflare_zones.domain.zones[0].id
-  target  = "*.${var.site_domain}/*"
+  # "*domain/*" covers both the apex and www; "*.domain/*" missed the apex.
+  target = "*${var.site_domain}/*"
   actions {
     always_use_https = true
   }

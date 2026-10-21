@@ -41,9 +41,11 @@ resource "aws_s3_bucket_acl" "my_bucket_acl_sub" {
     aws_s3_bucket_public_access_block.my_bucket_pub_block_sub
   ]
   bucket = aws_s3_bucket.my_bucket_sub.id
-  acl    = "public-read"
+  acl    = "private"
 }
 
+# Objects are readable only through Cloudflare (its published IP ranges);
+# the bucket ACL stays private so the bucket cannot be listed directly.
 resource "aws_s3_bucket_policy" "my_bucket_policy_sub" {
   bucket = aws_s3_bucket.my_bucket_sub.id
   policy = jsonencode({
@@ -81,8 +83,7 @@ resource "aws_s3_bucket_policy" "my_bucket_policy_sub" {
               "2405:b500::/32",
               "2405:8100::/32",
               "2a06:98c0::/29",
-              "2c0f:f248::/32",
-              "68.148.49.83" # Home Public IP
+              "2c0f:f248::/32"
             ]
           }
         }

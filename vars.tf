@@ -1,25 +1,11 @@
 # variables.tf
-variable "aws_region" {
-  description = "AWS region"
-  type        = string
-}
-
-variable "bucket_prefix" {
-  description = "Prefix for the S3 bucket name"
-  type        = string
-}
-
-variable "environment" {
-  description = "Environment for the S3 bucket"
-  type        = string
-}
-
 variable "site_domain" {
   type = string
 }
 
 variable "CLOUDFLARE_API_TOKEN" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 variable "common_tags" {

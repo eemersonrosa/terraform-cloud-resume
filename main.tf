@@ -35,17 +35,13 @@ module "resource_group" {
 }
 
 module "s3_bucket_sub" {
-  source        = "./modules/s3_bucket_sub"
-  bucket_prefix = var.bucket_prefix
-  environment   = var.environment
-  common_tags   = var.common_tags
-  site_domain   = var.site_domain
+  source      = "./modules/s3_bucket_sub"
+  common_tags = var.common_tags
+  site_domain = var.site_domain
 }
 
 module "s3_bucket_apex" {
   source               = "./modules/s3_bucket_apex"
-  bucket_prefix        = var.bucket_prefix
-  environment          = var.environment
   common_tags          = var.common_tags
   site_domain          = var.site_domain
   target_s3_bucket_sub = module.s3_bucket_sub.target_s3_bucket_sub
@@ -57,9 +53,6 @@ module "cloudflare" {
   s3_web_endpoint_apex = module.s3_bucket_apex.s3_web_endpoint_apex
   s3_web_endpoint_sub  = module.s3_bucket_sub.s3_web_endpoint_sub
 }
-
-# Data source to get the current AWS account ID
-data "aws_caller_identity" "current" {}
 
 # Upload a local folder and its contents to the S3 bucket
 resource "aws_s3_object" "folder_upload" {
